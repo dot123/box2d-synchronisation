@@ -1,2 +1,7 @@
-# hello-world
-Hello world new project template.
+# box2d帧同步测试
+
+用于测试在不同平台上box2d计算结果是否同步。
+
+使用说明：
+点击start按钮，开始测试，等待测试完成将保存日志， 对比不同平台的日志文件确定是否同步。
+
