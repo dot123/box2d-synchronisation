@@ -15,7 +15,7 @@
         var world = this._world;
         if (!enabled || !world || !this.enabled) return;
 
-2.重新编译引擎参考https://docs.cocos.com/creator/manual/zh/advanced-topics/engine-customization.html。
+2.重新编译引擎参考https://docs.cocos.com/creator/manual/zh/advanced-topics/engine-customization.html
 
 3.点击start按钮，开始测试，等待测试完成将保存日志， 对比不同平台的日志文件确定是否同步。
 
