@@ -1,4 +1,11 @@
-import FileSaver = require("FileSaver"); //打包原生平台时请注释本行并删除FileSaver.js文件
+/*
+ * @Author: conjurer
+ * @Github: https://github.com/dot123
+ * @Date: 2020-06-30 14:11:41
+ * @LastEditors: conjurer
+ * @LastEditTime: 2020-06-30 14:14:51
+ * @Description:
+ */
 
 class LogMgr {
     public ClientFrame = 0;
@@ -10,17 +17,13 @@ class LogMgr {
         this.LogIdx++;
     }
 
-    public FileWrite(contentText, fileName) {
-        let blob = new Blob([contentText], { type: "text/plain;charset=utf-8" });
-        FileSaver.saveAs(blob, fileName);
-    }
-
     public Save() {
         let t = new Date();
-        let pathFileName = [t.getTime(), ".txt"].join("");
-
+        let logFileName = [t.getTime(), ".txt"].join("");
+        let contentText = this.LogList.join("\n");
         if (cc.sys.browserType) {
-            this.FileWrite(this.LogList.join("\n"), pathFileName);
+            let blob = new Blob([contentText], { type: "text/plain;charset=utf-8" });
+            saveAs(blob, logFileName);
         } else {
             let fileUtils = jsb.fileUtils;
             let logFilePath = fileUtils.getWritablePath() + "Log/";
@@ -28,8 +31,8 @@ class LogMgr {
                 fileUtils.createDirectory(logFilePath);
             }
             //Log文件完整路径
-            let logPathFileName = [logFilePath, t.getTime(), ".txt"].join("");
-            fileUtils.writeStringToFile(this.LogList.join("\n"), logPathFileName);
+            let logPathFileName = [logFilePath, logFileName].join("");
+            fileUtils.writeStringToFile(contentText, logPathFileName);
         }
     }
 }

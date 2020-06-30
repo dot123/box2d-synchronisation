@@ -46,7 +46,7 @@ export default class Helloworld extends cc.Component {
         let itemNode = cc.instantiate(this.itemPrefabList[idx]);
         itemNode.scale = 0.25;
         this.itemLayer.addChild(itemNode);
-        itemNode.setPosition(cc.v2(this.SyncRandom() * 2000, this.SyncRandom() * 2000));
+        itemNode.setPosition(cc.v2(Math.floor(this.SyncRandom() * 2000), Math.floor(this.SyncRandom() * 2000)));
         itemNode.name = "" + this.nodeList.length;
         this.nodeList.push(itemNode);
 
@@ -77,7 +77,7 @@ export default class Helloworld extends cc.Component {
                         let point = result.point;
                         let normal = result.normal;
                         let fraction = result.fraction;
-                        LogMgr.Push("" + LogMgr.LogIdx + "  " + itemNode.name + "  " + LogMgr.ClientFrame + "  " + point.x + "  " + point.y + " " + fraction);
+                        LogMgr.Push([LogMgr.LogIdx, collider.node.name, LogMgr.ClientFrame, point.x, point.y, fraction, normal.x, normal.y].join(","));
                     }
                 }
             }
@@ -103,7 +103,9 @@ export default class Helloworld extends cc.Component {
             let childrenCount = this.itemLayer.childrenCount;
             for (let i = 0; i < childrenCount; i++) {
                 let itemNode = children[i];
-                str += itemNode.name + itemNode.x + itemNode.y + itemNode.angle;
+                let pos = itemNode.getPosition();
+                let angle = itemNode.angle;
+                str += itemNode.name + Math.floor(pos.x) + Math.floor(pos.y) + Math.floor(angle);
             }
 
             let hex_md5 = MD5Tool.hex_md5(str);
